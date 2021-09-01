@@ -64,9 +64,17 @@ int main(int argc, char* argv[])
 			exit(1);
 		}
 
+	
+		auto filename = result["input"].as<std::vector<std::string>>().front();
+
+		if (!std::ifstream(filename).good())
+		{
+			std::cerr << "ERROR: Input file does not exist!" << std::endl;
+			exit(1);
+		}
+
 		auto sdf = std::unique_ptr<Discregrid::DiscreteGrid>{};
 
-		auto filename = result["input"].as<std::vector<std::string>>().front();
 		auto lastindex = filename.find_last_of(".");
 		auto extension = filename.substr(lastindex + 1, filename.length() - lastindex);
 

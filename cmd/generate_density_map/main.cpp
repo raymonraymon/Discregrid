@@ -28,8 +28,8 @@ std::istream& operator>>(std::istream& is, AlignedBox3d& data)
 
 int main(int argc, char* argv[])
 {
-	cxxopts::Options options(argv[0], "Generates a signed distance field from a closed two-manifold triangle mesh.");
-	options.positional_help("[input OBJ file]");
+	cxxopts::Options options(argv[0], "GenerateDensityMap.");
+	options.positional_help("[input SDF cdf file]");
 
 	options.add_options()
 	("h,help", "Prints this help text")
@@ -49,14 +49,14 @@ int main(int argc, char* argv[])
 		if (result.count("help"))
 		{
 			std::cout << options.help() << std::endl;
-			std::cout << std::endl << std::endl << "Example: GenerateSDF -r \"50 50 50\" dragon.obj" << std::endl;
+			std::cout << std::endl << std::endl << "Example: GenerateDensityMap -o density.cdf lower_6.cdf " << std::endl;
 			exit(0);
 		}
 		if (!result.count("input"))
 		{
 			std::cout << "ERROR: No input SDF given." << std::endl;
 			std::cout << options.help() << std::endl;
-			std::cout << std::endl << std::endl << "Example: GenerateDensityMap -r \"50 50 50\" field.cdf" << std::endl;
+			std::cout << std::endl << std::endl << "Example: GenerateDensityMap -o density.cdf lower_6.cdf " << std::endl;
 			exit(1);
 		}
 		auto filename = result["input"].as<std::vector<std::string>>().front();

@@ -677,6 +677,17 @@ CubicLagrangeDiscreteGrid::CubicLagrangeDiscreteGrid(AlignedBox3d const &domain,
 
 void CubicLagrangeDiscreteGrid::save(std::string const &filename) const
 {
+#if 0
+	std::cout << "Writing results to: " << filename << "\n";
+
+	std::ofstream out(filename.c_str());
+
+	//out << m_domain.m_min[0] << " " << m_domain.nj << " " << phim_domain_grid.nk << std::endl;
+	out << m_resolution[0] << " " << m_resolution[1] << " " << m_resolution[2] << std::endl;
+	out << m_cell_size[0] << " " << m_cell_size[1] << " " << m_cell_size[2] << std::endl;
+	out.close();
+#else
+	//auto out = std::ofstream(filename, std::ios::in);
 	auto out = std::ofstream(filename, std::ios::binary);
 	serialize::write(*out.rdbuf(), m_domain);
 	serialize::write(*out.rdbuf(), m_resolution);
@@ -716,6 +727,7 @@ void CubicLagrangeDiscreteGrid::save(std::string const &filename) const
 	}
 
 	out.close();
+#endif
 }
 
 void CubicLagrangeDiscreteGrid::load(std::string const &filename)
